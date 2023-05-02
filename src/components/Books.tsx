@@ -1,13 +1,19 @@
 import React from "react"
 import Styles from '../styles/Movies.module.css'
+import { Book } from "../types"
 
-export default function Books(props) {
-  const { data } = props
 
+interface Props {
+  data: {
+    docs: Book[]
+  }
+}
+
+const Books: React.FC<Props> = ({ data }) => {
   return (
     <div className={Styles.movieDashboard}>
       {data.docs.map((book, index) => (
-        <div key={book.id || index}>
+        <div key={index}>
           <h1>{book.name}</h1>
           <p>{book.author}</p>
           <p>{book.published}</p>
@@ -16,3 +22,5 @@ export default function Books(props) {
     </div>
   )
 }
+
+export default Books

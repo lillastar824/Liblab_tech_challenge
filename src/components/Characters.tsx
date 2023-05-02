@@ -1,17 +1,24 @@
-import React, { useMemo, useState } from "react"
-
+import { useMemo, useState } from "react"
 import Styles from "../styles/Movies.module.css"
+import { Character } from "../types"
 
-export default function Characters(props) {
+
+interface Props {
+  data: {
+    docs: Character[]
+  }
+}
+
+export default function Characters(props: Props) {
   const { data } = props
   const [char, setChar] = useState("")
 
-  const mappedList = useMemo(() => {
-    if (char === "") {
-      return data.docs
-    }
-    return data.docs.filter((element) => element["name"].toLowerCase().includes(char.toLowerCase()))
-  }, [data.docs, char])
+const mappedList = useMemo(() => {
+  if (!char) {
+    return data.docs
+  }
+  return data.docs.filter((element) => element["name"].toLowerCase().includes(char.toLowerCase()))
+}, [data.docs, char])
 
   return (
     <div className={Styles.movieDashboard}>
